@@ -74,7 +74,8 @@ testdata&lt;-read.csv(&quot;pml-testing.csv&quot;)</code></pre>
 <div id="data-slicing" class="section level3">
 <h3>Data Slicing</h3>
 <p>Create training (75%) and test (25%) sets</p>
-<pre class="r"><code>DataN&lt;-Data[Data$new_window==&quot;yes&quot;,]
+<pre class="r"><code>set.seed(1984)
+DataN&lt;-Data[Data$new_window==&quot;yes&quot;,]
 inTrain&lt;-createDataPartition(DataN$classe, p = 0.75, list = FALSE)
 training&lt;-DataN[inTrain, ]
 testing&lt;-DataN[-inTrain, ]</code></pre>
@@ -134,23 +135,23 @@ Model2&lt;-train(tr_cleaner$classe~ . , method= &quot;gbm&quot;, data=tr_cleaner
 <h3>Cross Validation and Model Selection</h3>
 <div id="model-1-random-forests-1" class="section level4">
 <h4>Model 1 Random forests</h4>
-<p>According to the results of cross validation, the <strong>accuracy of Model 1 is 0.7777778 and the expected out of sample error is 0.2222222</strong>.</p>
-<pre class="r"><code>set.seed(12345)
+<p>According to the results of cross validation, the <strong>accuracy of Model 1 is</strong> 0.7777778 and the <strong>expected out of sample error is</strong> 0.2222222.</p>
+<pre class="r"><code>set.seed(2)
 confusionMatrix(tt_cleaner$classe, predict(Model1, tt_cleaner))$overall</code></pre>
 <pre><code>##       Accuracy          Kappa  AccuracyLower  AccuracyUpper   AccuracyNull 
-##   7.777778e-01   7.194745e-01   6.831092e-01   8.551881e-01   2.828283e-01 
+##   7.777778e-01   7.216969e-01   6.831092e-01   8.551881e-01   2.424242e-01 
 ## AccuracyPValue  McnemarPValue 
-##   2.506780e-24            NaN</code></pre>
+##   5.726494e-29            NaN</code></pre>
 </div>
 <div id="model-2-boosting-with-trees-1" class="section level4">
 <h4>Model 2 Boosting with trees</h4>
-<p>According to the results of cross validation, the <strong>accuracy of Model 2 is 0.7171717 and the expected out of sample error is 0.2828283</strong>.</p>
-<pre class="r"><code>set.seed(12345)
+<p>According to the results of cross validation, the <strong>accuracy of Model 2 is</strong> 0.7676768 and the <strong>expected out of sample error is</strong> 0.2323232.</p>
+<pre class="r"><code>set.seed(2)
 confusionMatrix(tt_cleaner$classe, predict(Model2, tt_cleaner))$overall</code></pre>
 <pre><code>##       Accuracy          Kappa  AccuracyLower  AccuracyUpper   AccuracyNull 
-##   7.171717e-01   6.416753e-01   6.177836e-01   8.031383e-01   3.131313e-01 
+##   7.676768e-01   7.086745e-01   6.720715e-01   8.466691e-01   2.424242e-01 
 ## AccuracyPValue  McnemarPValue 
-##   1.857978e-16            NaN</code></pre>
+##   6.025996e-28            NaN</code></pre>
 </div>
 <div id="selection" class="section level4">
 <h4>Selection</h4>

@@ -20,6 +20,7 @@ testdata<-read.csv("pml-testing.csv")
 Create training (75%) and test (25%) sets
 
 ```{r}
+set.seed(1984)
 DataN<-Data[Data$new_window=="yes",]
 inTrain<-createDataPartition(DataN$classe, p = 0.75, list = FALSE)
 training<-DataN[inTrain, ]
@@ -64,14 +65,14 @@ We will do cross validation on the test set to estimate the out of sample error 
 
 #### Model 1 Random forests
 ```{r echo=FALSE}
-set.seed(12345)
+set.seed(2)
 Accu1<-confusionMatrix(tt_cleaner$classe, predict(Model1, tt_cleaner))$overall[[1]]
 err1<-1-Accu1
 ```
-According to the results of cross validation, the **accuracy of Model 1 is `r Accu1` and the expected out of sample error is `r err1`**.
+According to the results of cross validation, the **accuracy of Model 1 is** `r Accu1` and the **expected out of sample error is** `r err1`.
 
 ```{r}
-set.seed(12345)
+set.seed(2)
 confusionMatrix(tt_cleaner$classe, predict(Model1, tt_cleaner))$overall
 
 ```
@@ -79,14 +80,14 @@ confusionMatrix(tt_cleaner$classe, predict(Model1, tt_cleaner))$overall
 #### Model 2  Boosting with trees
 
 ```{r echo=FALSE}
-set.seed(12345)
+set.seed(2)
 Accu2<-confusionMatrix(tt_cleaner$classe, predict(Model2, tt_cleaner))$overall[[1]]
 err2<-1-Accu2
 ```
-According to the results of cross validation, the **accuracy of Model 2 is `r Accu2` and the expected out of sample error is `r err2`**.
+According to the results of cross validation, the **accuracy of Model 2 is** `r Accu2` and the **expected out of sample error is** `r err2`.
 
 ```{r}
-set.seed(12345)
+set.seed(2)
 confusionMatrix(tt_cleaner$classe, predict(Model2, tt_cleaner))$overall
 ```
 
